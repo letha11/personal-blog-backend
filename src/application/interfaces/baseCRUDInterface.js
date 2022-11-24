@@ -24,4 +24,4 @@ export default class BaseCRUD {
   getAll() {
     return this.#notImplemented;
   }
-};
+}

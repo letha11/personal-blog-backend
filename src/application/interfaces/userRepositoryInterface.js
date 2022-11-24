@@ -6,5 +6,4 @@ export default class UserRepositoryInterface {
   getByName() {
     return this.notImplemented;
   }
-  
-};
+}
