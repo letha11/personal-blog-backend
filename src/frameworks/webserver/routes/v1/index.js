@@ -1,4 +1,5 @@
 import usersRoute from "./users";
+import postsRoute from "./posts";
 import express from "express";
 
 const routesV1 = () => {
@@ -6,6 +7,7 @@ const routesV1 = () => {
   const router = express.Router();
 
   router.use("/users", usersRoute());
+	router.use("/posts", postsRoute());
 
   return router;
 };
