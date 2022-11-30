@@ -1,27 +1,23 @@
 export default class BaseCRUD {
-  notImplemented;
-
-  constructor() {
-    this.notImplemented = Promise.reject(new Error("Not Implemented"));
-  }
+  constructor() {}
 
   add() {
-    return this.#notImplemented;
+    return Promise.reject(new Error("Not Implemented"));
   }
 
   update() {
-    return this.#notImplemented;
+    return Promise.reject(new Error("Not Implemented"));
   }
 
   delete() {
-    return this.#notImplemented;
+    return Promise.reject(new Error("Not Implemented"));
   }
 
   getById() {
-    return this.#notImplemented;
+    return Promise.reject(new Error("Not Implemented"));
   }
 
   getAll() {
-    return this.#notImplemented;
+    return Promise.reject(new Error("Not Implemented"));
   }
 }

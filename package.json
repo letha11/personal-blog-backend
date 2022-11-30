@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "start": "node ./src/app.js",
-    "dev": "nodemon --experimental-specifier-resolution=node ./src/app.js"
+    "dev": "nodemon --experimental-specifier-resolution=node ./src/app.js",
+		"seed": "npx sequelize-cli db:seed:all"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "debug": "^2.6.9",
@@ -24,6 +26,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.5.1",
     "eslint-plugin-promise": "^6.1.1",
-    "prettier": "^2.8.0"
+    "prettier": "^2.8.0",
+    "sequelize-cli": "^6.5.2"
   }
 }

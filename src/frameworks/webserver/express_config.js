@@ -1,3 +1,4 @@
+'use strict'
 import logger from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
