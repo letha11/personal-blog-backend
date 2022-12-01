@@ -6,8 +6,7 @@ export default class UserRepositoryInterface extends BaseCRUD {
     this.repository = repository;
   }
 
-  getAll = () => this.repository.findAll();
-
+  getAll = () => this.repository.getAll();
   getByName() {
     return Promise.reject(new Error("Not Implemented"));
   }

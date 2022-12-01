@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./src/app.js",
     "dev": "nodemon --experimental-specifier-resolution=node ./src/app.js",
-		"seed": "npx sequelize-cli db:seed:all"
+    "seed": "npx sequelize-cli db:seed:all"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -20,6 +20,7 @@
     "sequelize": "^6.25.8"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "eslint": "^8.28.0",
     "eslint-config-semistandard": "^17.0.0",
     "eslint-config-standard": "^17.0.0",

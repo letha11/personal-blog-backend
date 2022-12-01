@@ -9,7 +9,8 @@ const User = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // console.log(models);
+      this.hasMany(models.Post, { foreignKey: "authorId", as: "posts" });
     }
   }
   User.init(
