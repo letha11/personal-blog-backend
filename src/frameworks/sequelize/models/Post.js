@@ -9,7 +9,6 @@ const Post = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-			console.log(models.User);
       this.belongsTo(models.User, { foreignKey: "authorId", as: "author" });
     }
   }

@@ -4,6 +4,7 @@ const errorHandlingMiddleware = (err, req, res, next) => {
 
   res.status(statusCode).json({
 		success: false,
+		error: err.name,
 		message: err.message ? err.message : "Something went wrong",
   });
 };

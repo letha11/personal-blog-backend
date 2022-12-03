@@ -9,7 +9,6 @@ const User = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // console.log(models);
       this.hasMany(models.Post, { foreignKey: "authorId", as: "posts" });
     }
   }
@@ -22,6 +21,14 @@ const User = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
+			defaultScope: {
+				attributes: { exclude: ["password"] },
+			},
+			scopes: {
+				withPassword: {
+					attributes: {}, // this will include all attributes
+				}
+			}
     }
   );
   return User;

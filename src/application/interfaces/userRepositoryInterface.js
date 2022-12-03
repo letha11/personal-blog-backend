@@ -7,7 +7,15 @@ export default class UserRepositoryInterface extends BaseCRUD {
   }
 
   getAll = () => this.repository.getAll();
-  getByName() {
-    return Promise.reject(new Error("Not Implemented"));
-  }
+
+	getById = (id) => this.repository.getById(id);
+
+	getByProperty = (properties) => this.repository.getByProperty(properties);
+
+  add = (user) => this.repository.add(user);
+
+  update = (id, user) => this.repository.update(id, user);
+
+  delete = (id) => this.repository.deleteUser(id);
+
 }
