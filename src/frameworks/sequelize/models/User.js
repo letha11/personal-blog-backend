@@ -12,23 +12,34 @@ const User = (sequelize, DataTypes) => {
       this.hasMany(models.Post, { foreignKey: "authorId", as: "posts" });
     }
   }
+
   User.init(
     {
       username: DataTypes.STRING,
       password: DataTypes.STRING,
-      email: DataTypes.STRING,
+      email: DataTypes.STRING
     },
     {
       sequelize,
       modelName: "User",
-			defaultScope: {
-				attributes: { exclude: ["password"] },
-			},
-			scopes: {
-				withPassword: {
-					attributes: {}, // this will include all attributes
-				}
-			}
+      defaultScope: {
+        attributes: { exclude: ["password", "createdAt", "updatedAt"] }
+      },
+      scopes: {
+        all: {
+          attributes: {}
+        },
+        withPassword: {
+          attributes: {
+            exclude: ["createdAt", "updatedAt"]
+          } // this will include all attributes
+        },
+        creationTime: {
+          attributes: {
+            exclude: ["password"]
+          }
+        }
+      }
     }
   );
   return User;
