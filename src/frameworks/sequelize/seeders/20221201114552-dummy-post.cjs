@@ -6,7 +6,7 @@ const posts = [];
 
 for (let i = 0; i < 3; i++) {
 	posts.push({
-		authorId: 1,
+		authorId: 14,
 		title: faker.word.adjective(),
 		body: faker.lorem.lines(2),
 	});

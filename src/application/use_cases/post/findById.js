@@ -1,3 +1,9 @@
-export default function findById(id, repository) {
-	return repository.getById(id);
+import { NotFoundError } from "../exceptions/index.js";
+
+export default async function findById(id, postRepo) {
+  const post = await postRepo.getById(id);
+
+  if (!post) throw new NotFoundError("Post not found");
+
+  return post;
 }

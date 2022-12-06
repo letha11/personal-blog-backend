@@ -27,7 +27,7 @@ export default function userRepositoryImpl() {
       });
     }
 
-    return user;
+  return user;
   };
 
   const add = async (userEntity) => {

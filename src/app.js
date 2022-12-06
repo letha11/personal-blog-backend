@@ -27,7 +27,7 @@ serverConfig(app, config).startServer(dbConn);
 // Initialize express routs
 initRoutes(app, express);
 
-// Erorr handling
+// Error handling
 app.use(errorHandlingMiddleware);
 
 export default app;

@@ -10,21 +10,19 @@ const postsRoute = () => {
 
   const controller = postController(
     new PostRepositoryInterface(new PostRepositoryImpl()),
-		authServiceInterface(authServiceImpl()),
+		// authServiceInterface(authServiceImpl()),
   );
 
   router
     .route("/")
-    .get((req, res, next) => {
-      res.json({ success: true, message: "Hello worlde" });
-    })
-    .post((req, res, next) => {});
+    .get(controller.findAll)
+    .post(controller.add);
 
   router
     .route("/:id")
-    .get(controller.getPostById)
-    .put((req, res, next) => {})
-    .delete((req, res, next) => {});
+    .get(controller.getById)
+    .put(controller.update)
+    .delete(controller.del);
 
   return router;
 };
