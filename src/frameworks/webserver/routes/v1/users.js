@@ -12,7 +12,7 @@ const usersRoute = () => {
 
   const controller = userController(
     new UserRepository(userRepositoryImpl()),
-    authServiceInterface(authServiceImpl())
+    authServiceInterface(authServiceImpl()),
   );
 
   router.route("/").get(controller.getAll).post(controller.addNewUser);

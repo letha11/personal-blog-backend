@@ -1,4 +1,4 @@
-import { NotFoundError } from "../exceptions";
+import { NotFoundError } from "../exceptions/index";
 
 export default async function getById(id, userRepo) {
 	const user = await userRepo.getById(id)

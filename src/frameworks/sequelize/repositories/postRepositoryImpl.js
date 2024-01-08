@@ -1,4 +1,4 @@
-import dbModels from "../models";
+import dbModels from "../models/index";
 
 export default class PostRepositoryImpl {
   constructor() {

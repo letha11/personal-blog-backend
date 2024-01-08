@@ -1,5 +1,5 @@
 import userEntity from "../../../entities/userEntity";
-import { ValidationError, ConflictError } from "../exceptions";
+import { ValidationError, ConflictError } from "../exceptions/index";
 
 export default async function addUser(
   username,

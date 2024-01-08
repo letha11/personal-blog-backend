@@ -1,17 +1,17 @@
-'use strict'
+"use strict";
 
 import express from "express";
 import dotenv from "dotenv";
 
 import expressConfig from "./frameworks/webserver/express_config";
-import initRoutes from "./frameworks/webserver/routes";
+import initRoutes from "./frameworks/webserver/routes/index";
 import serverConfig from "./frameworks/webserver/server_config";
 import config from "./config/config";
 import { checkDBConnection } from "./frameworks/sequelize/connection";
 import errorHandlingMiddleware from "./frameworks/webserver/middlewares/errorHandling";
 
 // Initialize dotenv
-dotenv.config()
+dotenv.config();
 
 // Connect to DB
 let dbConn = await checkDBConnection();

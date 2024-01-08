@@ -1,5 +1,5 @@
 import userEntity from "../../../entities/userEntity";
-import { NotFoundError } from "../exceptions";
+import { NotFoundError } from "../exceptions/index";
 
 export default async function updateUser(
 	id,
