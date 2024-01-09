@@ -5,6 +5,8 @@ import userRepositoryImpl from "../../../sequelize/repositories/userRepositoryIm
 import userController from "../../../../controllers/userController";
 import authServiceInterface from "../../../../application/interfaces/authServiceInterface";
 import authServiceImpl from "../../../services/authService";
+import config from "../../../../config/config";
+import authMiddleware from "../../middlewares/authMiddleware";
 
 const usersRoute = () => {
   // I use different instances for each route, to avoid conflicts that may arise from express.
@@ -12,10 +14,12 @@ const usersRoute = () => {
 
   const controller = userController(
     new UserRepository(userRepositoryImpl()),
-    authServiceInterface(authServiceImpl()),
+    authServiceInterface(authServiceImpl(config)),
   );
 
-  router.route("/").get(controller.getAll).post(controller.addNewUser);
+  router.use(authMiddleware).route("/").get(controller.getAll).post(
+    controller.addNewUser,
+  );
 
   router
     .route("/:id")

@@ -27,7 +27,7 @@ export default function userRepositoryImpl() {
       });
     }
 
-  return user;
+    return user;
   };
 
   const add = async (userEntity) => {
@@ -52,7 +52,7 @@ export default function userRepositoryImpl() {
       },
       {
         where: { id },
-      }
+      },
     );
 
     return result;
@@ -63,11 +63,11 @@ export default function userRepositoryImpl() {
       // Delete all post where have the user id
       await dbModels["Post"].destroy(
         { where: { authorId: id } },
-        { transaction: t }
+        { transaction: t },
       );
       const result = await User.destroy(
         { where: { id: id } },
-        { transaction: t }
+        { transaction: t },
       );
 
       return result;

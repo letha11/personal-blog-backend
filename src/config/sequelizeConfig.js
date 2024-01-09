@@ -1,14 +1,12 @@
-import dotenv from "dotenv";
-
-dotenv.config();
+import config from "./config";
 
 const sequelizeConfig = {
   development: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST ?? 'localhost',
-    port: process.env.DB_PORT ?? 3306,
+    username: config.DB_USER,
+    password: config.DB_PASS,
+    database: config.DB_NAME,
+    host: config.DB_HOST,
+    port: config.DB_PORT,
     dialect: "mysql",
     dialectOptions: {
       bigNumberStrings: true,
