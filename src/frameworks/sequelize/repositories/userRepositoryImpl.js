@@ -1,6 +1,6 @@
 import dbModels from "../models/index";
 
-export default function userRepositoryImpl() {
+export default function userRepositoryImpl(authService) {
   const User = dbModels["User"];
 
   const getAll = () => {
@@ -17,6 +17,7 @@ export default function userRepositoryImpl() {
 
   const getByProperty = async (properties) => {
     let user;
+
     if (properties.scope) {
       user = await User.scope(properties.scope).findOne({
         where: properties.where,
@@ -30,12 +31,14 @@ export default function userRepositoryImpl() {
     return user;
   };
 
-  const add = async (userEntity) => {
+  const add = async (name, username, email, password) => {
+    password = await authService.encryptPassword(password);
+
     const newUser = await User.create({
-      name: userEntity.getName(),
-      username: userEntity.getUsername(),
-      password: userEntity.getPassword(),
-      email: userEntity.getEmail(),
+      name: name,
+      username: username,
+      password: password,
+      email: email,
     });
 
     // Deleting password field from the returned object
@@ -44,19 +47,25 @@ export default function userRepositoryImpl() {
     return newUser;
   };
 
-  const update = async (id, userEntity) => {
-    const result = await User.update(
+  const update = async (id, name, username, email, password, role) => {
+    if (password) {
+      password = authService.encryptPassword(password);
+    }
+
+    const updatedUser = await User.update(
       {
-        username: userEntity.getUsername(),
-        password: userEntity.getPassword(),
-        email: userEntity.getEmail(),
+        name: name,
+        username: username,
+        password: password,
+        email: email,
+        role: role,
       },
       {
         where: { id },
       },
     );
 
-    return result;
+    return updatedUser;
   };
 
   const deleteUser = (id) => {

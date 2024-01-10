@@ -18,31 +18,33 @@ const User = (sequelize, DataTypes) => {
       username: DataTypes.STRING,
       name: DataTypes.STRING,
       password: DataTypes.STRING,
-      email: DataTypes.STRING
+      email: DataTypes.STRING,
+      role: DataTypes.ENUM("user", "admin"),
     },
     {
       sequelize,
       modelName: "User",
       defaultScope: {
-        attributes: { exclude: ["password", "createdAt", "updatedAt"] }
+        attributes: { exclude: ["password", "createdAt", "updatedAt"] },
       },
       scopes: {
         all: {
-          attributes: {}
+          attributes: {},
         },
         withPassword: {
           attributes: {
-            exclude: ["createdAt", "updatedAt"]
-          } // this will include all attributes
+            exclude: ["createdAt", "updatedAt"],
+          }, // this will include all attributes
         },
         creationTime: {
           attributes: {
-            exclude: ["password"]
-          }
-        }
-      }
-    }
+            exclude: ["password"],
+          },
+        },
+      },
+    },
   );
+
   return User;
 };
 

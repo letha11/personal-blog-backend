@@ -10,8 +10,8 @@ export default function authServiceImpl(config) {
   const checkPassword = async (password, hashedPassword) =>
     await bcrypt.compare(password, hashedPassword);
 
-  const generateToken = async (username) =>
-    await jwt.sign({ username }, config.TOKEN_SECRET, { expiresIn: "7d" });
+  const generateToken = async (payload) =>
+    await jwt.sign(payload, config.TOKEN_SECRET, { expiresIn: "7d" });
 
   const verifyToken = async (token) =>
     await jwt.verify(token, config.TOKEN_SECRET);

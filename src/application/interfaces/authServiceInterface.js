@@ -5,8 +5,8 @@ export default function authServiceInterface(serviceImpl) {
   const checkPassword = async (password, hashedPassword) =>
     await serviceImpl.checkPassword(password, hashedPassword);
 
-  const generateToken = async (username) =>
-    await serviceImpl.generateToken(username);
+  const generateToken = async (payload) =>
+    await serviceImpl.generateToken(payload);
 
   const verifyToken = async (token) => await serviceImpl.verifyToken(token);
 

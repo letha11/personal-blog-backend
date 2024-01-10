@@ -13,8 +13,9 @@ const usersRoute = () => {
   const router = express.Router();
 
   const controller = userController(
-    new UserRepository(userRepositoryImpl()),
-    authServiceInterface(authServiceImpl(config)),
+    new UserRepository(
+      userRepositoryImpl(authServiceInterface(authServiceImpl(config))),
+    ),
   );
 
   router.use(authMiddleware).route("/").get(controller.getAll).post(

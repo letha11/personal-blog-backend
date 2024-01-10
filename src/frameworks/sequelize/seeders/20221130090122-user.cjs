@@ -21,6 +21,7 @@ module.exports = {
         // password: import('../../services/authService')().encryptPassword("testing").then(val => val),
         password: bcrypt.hashSync("testing", 10),
         email: "dummy_email@gmail.com",
+        role: 'admin',
         createdAt: Sequelize.fn("NOW"),
       },
     ]);

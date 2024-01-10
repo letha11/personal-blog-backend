@@ -7,13 +7,15 @@ export default class PostRepositoryImpl {
 
   findAll = () => {
     return this.model.findAll({
-      include: [{ model: dbModels["User"], as: "author" }]
+      include: [{ model: dbModels["User"], as: "author" }],
     });
   };
 
   findById = async (id) => {
     // findByPk stand for = Find by Primary key
-    const post = await this.model.findByPk(id, { include: [{ model: dbModels["User"], as: "author" }] });
+    const post = await this.model.findByPk(id, {
+      include: [{ model: dbModels["User"], as: "author" }],
+    });
     return post;
   };
 
@@ -21,36 +23,35 @@ export default class PostRepositoryImpl {
     let post;
     if (properties.scope) {
       post = await this.model.scope(properties.scope).findOne({
-        where: properties.where
+        where: properties.where,
       });
     } else {
       post = await this.model.findOne({
-        where: properties.where
+        where: properties.where,
       });
     }
 
     return post;
   };
 
-  add = async (postEntity) => {
+  add = async (authorId, title, body) => {
     const newPost = await this.model.create({
-      authorId: postEntity.authorId,
-      title: postEntity.title,
-      body: postEntity.body
+      authorId: authorId,
+      title: title,
+      body: body,
     });
 
     return newPost;
   };
 
-  update = async (id, postEntity) => {
+  update = async (id, authorId, title, body) => {
     const result = await this.model.update({
-        authorId: postEntity.authorId,
-        title: postEntity.title,
-        body: postEntity.body
-      },
-      {
-        where: { id }
-      });
+      authorId: authorId,
+      title: title,
+      body: body,
+    }, {
+      where: { id },
+    });
 
     return result;
   };
@@ -60,6 +61,4 @@ export default class PostRepositoryImpl {
 
     return result;
   };
-
-
 }

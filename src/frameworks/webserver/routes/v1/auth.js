@@ -9,13 +9,14 @@ import config from "../../../../config/config";
 
 const authRoute = () => {
   const router = express.Router();
+  const authService = authServiceInterface(authServiceImpl(config));
 
   const controller = authController(
     new AuthRepositoryImpl(
       new UserRepositoryInterface(
-        userRepositoryImpl(),
+        userRepositoryImpl(authService),
       ),
-      authServiceInterface(authServiceImpl(config)),
+      authService,
     ),
   );
 

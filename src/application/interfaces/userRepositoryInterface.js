@@ -12,9 +12,9 @@ export default class UserRepositoryInterface extends BaseCRUD {
 
 	getByProperty = (properties) => this.repository.getByProperty(properties);
 
-  add = (user) => this.repository.add(user);
+  add = (name, username, email, password) => this.repository.add(name, username, email, password);
 
-  update = (id, user) => this.repository.update(id, user);
+  update = (id, name, username, email, password, role) => this.repository.update(id, name, username, email, password, role);
 
   delete = (id) => this.repository.deleteUser(id);
 

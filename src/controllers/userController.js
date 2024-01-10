@@ -4,9 +4,8 @@ import getById from "../application/use_cases/user/getById";
 import deleteUserUsecase from "../application/use_cases/user/delete";
 import updateUser from "../application/use_cases/user/update";
 
-export default function userController(userRepository, authServiceRepository) {
+export default function userController(userRepository) {
   const userRepo = userRepository;
-  const authService = authServiceRepository;
 
   const getAll = async (req, res, next) => {
     try {
@@ -40,7 +39,6 @@ export default function userController(userRepository, authServiceRepository) {
         password,
         email,
         userRepo,
-        authService
       );
 
       res.json({ status: true, data: newUser });
@@ -67,10 +65,10 @@ export default function userController(userRepository, authServiceRepository) {
 
   const update = async (req, res, next) => {
     const { id } = req.params;
-    const { username, password, email } = req.body;
+    const { name, username, password, email, role } = req.body;
 
     try {
-      await updateUser(id, username, password, email, userRepo, authService);
+      await updateUser(id, name, username, password, email, role, userRepo);
 
       res
         .status(200)

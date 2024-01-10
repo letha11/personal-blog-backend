@@ -1,4 +1,3 @@
-import postEntity from "../../../entities/postEntity.js";
 import { ValidationError } from "../exceptions/index.js";
 
 export default function addPost(
@@ -14,7 +13,5 @@ export default function addPost(
     );
   }
 
-  const newPost = postEntity(authorId, title, body);
-
-  return postRepo.add(newPost);
+  return postRepo.add(authorId, title, body);
 }
