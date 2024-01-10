@@ -16,7 +16,8 @@ module.exports = {
      */
     await queryInterface.bulkInsert("Users", [
       {
-        username: "John Doe",
+        name: "John Doe",
+        username: "johnDoe",
         // password: import('../../services/authService')().encryptPassword("testing").then(val => val),
         password: bcrypt.hashSync("testing", 10),
         email: "dummy_email@gmail.com",

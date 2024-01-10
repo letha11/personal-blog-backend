@@ -2,6 +2,7 @@ import userEntity from "../../../entities/userEntity";
 import { ValidationError, ConflictError } from "../exceptions/index";
 
 export default async function addUser(
+  name,
   username,
   password,
   email,
@@ -9,13 +10,14 @@ export default async function addUser(
   authService
 ) {
   // TODO: add a proper validation (consider using @hapi/joi)
-  if (!username || !password || !email) {
+  if (!username || !password || !email || !name) {
     throw new ValidationError(
-      "username, password and email fields cannot be empty"
+      "name, username, password and email fields cannot be empty"
     );
   }
 
   const newUser = userEntity(
+    name,
     username,
     await authService.encryptPassword(password),
     email

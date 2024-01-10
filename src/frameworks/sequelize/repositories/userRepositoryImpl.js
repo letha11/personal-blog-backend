@@ -32,6 +32,7 @@ export default function userRepositoryImpl() {
 
   const add = async (userEntity) => {
     const newUser = await User.create({
+      name: userEntity.getName(),
       username: userEntity.getUsername(),
       password: userEntity.getPassword(),
       email: userEntity.getEmail(),

@@ -20,6 +20,7 @@ const authRoute = () => {
   );
 
   router.route("/login").post(controller.loginUser);
+  router.route("/register").post(controller.registerUser);
 
   return router;
 };

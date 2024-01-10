@@ -31,10 +31,11 @@ export default function userController(userRepository, authServiceRepository) {
   };
 
   const addNewUser = async (req, res, next) => {
-    const { username, password, email } = req.body;
+    const { name, username, password, email } = req.body;
 
     try {
       const newUser = await addUser(
+        name,
         username,
         password,
         email,
