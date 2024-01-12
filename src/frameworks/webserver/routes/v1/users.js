@@ -1,6 +1,5 @@
 import express from "express";
 import UserRepository from "../../../../application/interfaces/userRepositoryInterface";
-// import dbModels from "../../../sequelize/models";
 import userRepositoryImpl from "../../../sequelize/repositories/userRepositoryImpl";
 import userController from "../../../../controllers/userController";
 import authServiceInterface from "../../../../application/interfaces/authServiceInterface";
@@ -18,15 +17,19 @@ const usersRoute = () => {
     ),
   );
 
-  router.use(authMiddleware).route("/").get(controller.getAll).post(
-    controller.addNewUser,
+  router.route("/").get(
+    controller.getAll,
   );
 
   router
-    .route("/:id")
-    .get(controller.getUserById)
+    .use(authMiddleware)
+    .route("/")
     .put(controller.update)
     .delete(controller.deleteUser);
+
+  router
+    .route("/:id")
+    .get(controller.getUserById);
 
   return router;
 };
