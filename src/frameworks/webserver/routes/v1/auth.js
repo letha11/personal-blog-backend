@@ -6,6 +6,7 @@ import userRepositoryImpl from "../../../sequelize/repositories/userRepositoryIm
 import authServiceInterface from "../../../../application/interfaces/authServiceInterface";
 import authServiceImpl from "../../../services/authService";
 import config from "../../../../config/config";
+import authMiddleware from "../../middlewares/authMiddleware";
 
 const authRoute = () => {
   const router = express.Router();
@@ -22,6 +23,7 @@ const authRoute = () => {
 
   router.route("/login").post(controller.loginUser);
   router.route("/register").post(controller.registerUser);
+  router.use(authMiddleware).route("/user").get(controller.getAuthenticatedUser);
 
   return router;
 };

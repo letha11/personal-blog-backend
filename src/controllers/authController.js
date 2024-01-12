@@ -1,5 +1,7 @@
 import login from "../application/use_cases/auth/login";
 import register from "../application/use_cases/auth/register";
+import getById from "../application/use_cases/user/getById";
+import getAuthenticatedUserUsecase from "../application/use_cases/auth/getAuthenticatedUser";
 
 export default function authController(authRepository) {
   const loginUser = async (req, res, next) => {
@@ -32,8 +34,21 @@ export default function authController(authRepository) {
     }
   };
 
+  const getAuthenticatedUser = async (req, res, next) => {
+    const id = req.id; // from auth middleware
+
+    try {
+      const authenticatedUser = await getAuthenticatedUserUsecase(id, authRepository);
+
+      res.json({ status: true, data: authenticatedUser });
+    } catch (e) {
+      next(e);
+    }
+  };
+
   return {
     loginUser,
     registerUser,
+    getAuthenticatedUser,
   };
 }

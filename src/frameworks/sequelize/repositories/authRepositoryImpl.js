@@ -3,6 +3,7 @@ import AuthRepositoryInterface from "../../../application/interfaces/authReposit
 import { AuthenticationError } from "../../../application/use_cases/exceptions/index";
 import getByProperty from "../../../application/use_cases/user/getByProperty";
 import addUser from "../../../application/use_cases/user/add";
+import getById from "../../../application/use_cases/user/getById";
 
 export default class AuthRepositoryImpl extends AuthRepositoryInterface {
   constructor(userRepo, authServices) {
@@ -52,5 +53,11 @@ export default class AuthRepositoryImpl extends AuthRepositoryInterface {
     const token = await this.authServices.generateToken({ username });
 
     return { token, newUser };
+  };
+
+  getAuthenticatedUser = async (id) => {
+    const authenticatedUser = await getById(id, this.userRepo)
+
+    return authenticatedUser;
   };
 }
