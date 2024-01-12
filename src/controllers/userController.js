@@ -48,7 +48,7 @@ export default function userController(userRepository) {
   };
 
   const deleteUser = async (req, res, next) => {
-    const { id } = req.params;
+    const id = req.id;
 
     try {
       const result = await deleteUserUsecase(id, userRepo);
@@ -64,7 +64,7 @@ export default function userController(userRepository) {
   };
 
   const update = async (req, res, next) => {
-    const { id } = req.params;
+    const id = req.id; // from auth middleware
     const { name, username, password, email, role } = req.body;
 
     try {

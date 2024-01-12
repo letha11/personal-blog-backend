@@ -20,7 +20,7 @@ export default class AuthRepositoryImpl extends AuthRepositoryInterface {
       },
     }, this.userRepo);
 
-    const { role } = user;
+    const { id, role } = user;
 
     const isPasswordMatched = await this.authServices.checkPassword(
       password,
@@ -34,7 +34,7 @@ export default class AuthRepositoryImpl extends AuthRepositoryInterface {
       );
     }
 
-    const token = await this.authServices.generateToken({ username, role });
+    const token = await this.authServices.generateToken({ id, username, role });
 
     return token;
   };

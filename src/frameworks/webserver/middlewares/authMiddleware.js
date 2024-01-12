@@ -9,17 +9,19 @@ const authMiddleware = async (req, res, next) => {
   const authService = authServiceInterface(authServiceImpl(config))
 
   if (!token) {
-    return res.status(401).json({ status: false, message: "Access Denied" });
+    return res.sendStatus(401);
   }
 
   try {
     const decoded = await authService.verifyToken(token);
     
+    req.id = decoded.id;
     req.username = decoded.username;
+    req.role = decoded.role;
 
     next();
   } catch (e) {
-    return res.status(401).json({ status: false, message: "Invalid Token" });
+    return res.sendStatus(401);
   }
 };
 

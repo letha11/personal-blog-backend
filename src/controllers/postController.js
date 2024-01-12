@@ -5,7 +5,6 @@ import updatePost from "../application/use_cases/post/update.js";
 import deletePost from "../application/use_cases/post/delete.js";
 
 export default function postController(postRepository) {
-
   const getById = async (req, res, next) => {
     const { id } = req.params;
 
@@ -13,7 +12,7 @@ export default function postController(postRepository) {
       const post = await findById(id, postRepository);
       res.json({
         success: true,
-        data: post
+        data: post,
       });
     } catch (e) {
       next(e);
@@ -26,7 +25,7 @@ export default function postController(postRepository) {
 
       res.json({
         success: true,
-        data: posts
+        data: posts,
       });
     } catch (e) {
       next(e);
@@ -34,14 +33,15 @@ export default function postController(postRepository) {
   };
 
   const add = async (req, res, next) => {
-    const { authorId, title, body } = req.body;
+    const { title, body } = req.body;
+    const authorId = req.id;
 
     try {
       const newUser = await addPost(authorId, title, body, postRepository);
 
       res.json({
         success: true,
-        data: newUser
+        data: newUser,
       });
     } catch (e) {
       next(e);
@@ -84,7 +84,6 @@ export default function postController(postRepository) {
     findAll,
     add,
     update,
-    del
+    del,
   };
-
 }

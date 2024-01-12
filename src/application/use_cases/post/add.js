@@ -9,7 +9,7 @@ export default function addPost(
   // TODO: add a proper validation (consider using @hapi/joi)
   if (!authorId || !title || !body) {
     throw new ValidationError(
-      "authorId, title and body fields cannot be empty"
+      "title and body fields cannot be empty"
     );
   }
 
