@@ -23,7 +23,6 @@ export default async function addUser(
   const existingEmail = await userRepo.getByProperty({
     where: { email: email },
   });
-  console.log(existingEmail);
   if (existingEmail) throw new ConflictError("Email already exists");
 
   return userRepo.add(name, username, email, password, userRepo);
