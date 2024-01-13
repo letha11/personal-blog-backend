@@ -35,9 +35,15 @@ export default class AuthRepositoryImpl extends AuthRepositoryInterface {
       );
     }
 
-    const token = await this.authServices.generateToken({ id, username, role });
+    const payload = { id, username, role };
+    const refreshToken = await this.authServices.generateToken(payload, {
+      expiresIn: "7d",
+    });
+    const token = await this.authServices.generateToken(payload, {
+      expiresIn: "7h",
+    });
 
-    return token;
+    return { token, refreshToken };
   };
 
   register = async (name, username, email, password) => {
@@ -56,8 +62,26 @@ export default class AuthRepositoryImpl extends AuthRepositoryInterface {
   };
 
   getAuthenticatedUser = async (id) => {
-    const authenticatedUser = await getById(id, this.userRepo)
+    const authenticatedUser = await getById(id, this.userRepo);
 
     return authenticatedUser;
+  };
+
+  refreshToken = async (refreshToken) => {
+    try{
+      const decoded = await this.authServices.verifyToken(refreshToken);
+
+      const renewedRefreshToken = await this.authServices.generateToken(decoded, {
+        expiresIn: "7d",
+      });
+
+      const renewedToken = await this.authServices.generateToken(decoded, {
+        expiresIn: "7h",
+      });
+
+      return { renewedToken, renewedRefreshToken };
+    } catch(e) {
+      throw new AuthenticationError("Invalid Refresh Token", 401);
+    }
   };
 }

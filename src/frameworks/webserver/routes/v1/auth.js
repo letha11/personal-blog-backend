@@ -23,6 +23,7 @@ const authRoute = () => {
 
   router.route("/login").post(controller.loginUser);
   router.route("/register").post(controller.registerUser);
+  router.route('/refresh-token').post(controller.refreshToken);
   router.use(authMiddleware).route("/user").get(controller.getAuthenticatedUser);
 
   return router;
