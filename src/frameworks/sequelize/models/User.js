@@ -15,10 +15,31 @@ const User = (sequelize, DataTypes) => {
 
   User.init(
     {
-      username: DataTypes.STRING,
-      name: DataTypes.STRING,
-      password: DataTypes.STRING,
-      email: DataTypes.STRING,
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          min: 3,
+          max: 16,
+        }
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+        validate: {
+          isEmail: true,
+        }
+      },
       role: DataTypes.ENUM("user", "admin"),
     },
     {

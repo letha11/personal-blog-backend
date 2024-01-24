@@ -12,6 +12,7 @@ module.exports = {
       username: {
         allowNull: false,
         type: Sequelize.STRING,
+        unique: true,
       },
       name: {
         allowNull: false,
@@ -24,6 +25,7 @@ module.exports = {
       email: {
         allowNull: false,
         type: Sequelize.STRING,
+        unique: true,
       },
       role: {
         type: Sequelize.ENUM,

@@ -2,6 +2,7 @@ import login from "../application/use_cases/auth/login";
 import register from "../application/use_cases/auth/register";
 import getAuthenticatedUserUsecase from "../application/use_cases/auth/getAuthenticatedUser";
 import refreshTokenUsecase from "../application/use_cases/auth/refreshToken";
+import { ValidationError } from "sequelize";
 
 export default function authController(authRepository) {
   const loginUser = async (req, res, next) => {
@@ -34,6 +35,9 @@ export default function authController(authRepository) {
 
       res.json({ status: true, token, user: newUser });
     } catch (e) {
+      if (e instanceof ValidationError) {
+        e.message = e.errors[0].message;
+      }
       next(e);
     }
   };
@@ -54,7 +58,8 @@ export default function authController(authRepository) {
   };
 
   const refreshToken = async (req, res, next) => {
-    const authHeader = req.headers["authorization"] || req.headers["Authorization"];
+    const authHeader = req.headers["authorization"] ||
+      req.headers["Authorization"];
     const refreshToken = authHeader && authHeader.split(" ")[1];
 
     if (!refreshToken) {
