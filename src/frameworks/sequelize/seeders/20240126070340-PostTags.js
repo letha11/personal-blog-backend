@@ -1,7 +1,5 @@
 "use strict";
 
-const { faker } = require("@faker-js/faker");
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -15,17 +13,11 @@ module.exports = {
      * }], {});
      */
 
-    await queryInterface.bulkInsert("Posts", [
-      {
-        authorId: 1,
-        title: faker.word.adjective(),
-        body: faker.lorem.lines(5),
-      },
-      {
-        authorId: 1,
-        title: faker.word.adjective(),
-        body: faker.lorem.lines(5),
-      },
+    await queryInterface.bulkInsert("PostTags", [
+      { PostId: 1, TagId: 1 },
+      { PostId: 1, TagId: 2 },
+      { PostId: 1, TagId: 3 },
+      { PostId: 2, TagId: 1 },
     ]);
   },
 

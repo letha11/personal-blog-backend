@@ -1,15 +1,15 @@
 import express from "express";
-import postController from "../../../../controllers/postController";
-import PostRepositoryInterface from "../../../../application/interfaces/postRepositoryInterface";
-import PostRepositoryImpl from "../../../sequelize/repositories/postRepositoryImpl";
 import authMiddleware from "../../middlewares/authMiddleware";
 import roleMiddleware from "../../middlewares/roleMiddleware";
+import tagController from "../../../../controllers/tagController";
+import TagRepositoryImpl from "../../../sequelize/repositories/tagRepositoryImpl";
+import TagRepositoryInterface from "../../../../application/interfaces/tagRepositoryInterface";
 
-const postsRoute = () => {
+const tagsRoutes = () => {
   const router = express.Router();
 
-  const controller = postController(
-    new PostRepositoryInterface(new PostRepositoryImpl()),
+  const controller = tagController(
+    new TagRepositoryInterface(new TagRepositoryImpl()),
   );
   router
     .route("/")
@@ -19,12 +19,11 @@ const postsRoute = () => {
     .route("/:id")
     .get(controller.getById);
 
-  // all routes below this line will have this middlewares
   router.use([authMiddleware, roleMiddleware(["admin"])]);
 
   router
     .route("/")
-    .post(controller.add)
+    .post(controller.add);
 
   router
     .route("/:id")
@@ -34,4 +33,4 @@ const postsRoute = () => {
   return router;
 };
 
-export default postsRoute;
+export default tagsRoutes;

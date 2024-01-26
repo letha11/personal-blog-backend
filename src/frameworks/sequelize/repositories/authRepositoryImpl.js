@@ -36,11 +36,13 @@ export default class AuthRepositoryImpl extends AuthRepositoryInterface {
     }
 
     const payload = { id, username, role };
-    const refreshToken = await this.authServices.generateToken(payload, {
-      expiresIn: "7d",
-    });
     const token = await this.authServices.generateToken(payload, {
       expiresIn: "7h",
+    });
+
+    payload['refresh'] = true;
+    const refreshToken = await this.authServices.generateToken(payload, {
+      expiresIn: "7d",
     });
 
     return { token, refreshToken };

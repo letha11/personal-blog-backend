@@ -6,11 +6,12 @@ export default class PostRepositoryInterface extends BaseCRUD {
     this.repository = repository;
   }
 
-  getById = (id) => this.repository.findById(id);
+  findById = (id) => this.repository.findById(id);
   getByProperty = (properties) => this.repository.getByProperty(properties);
-  getAll = () => this.repository.findAll();
-  add = (authorId, title, body) => this.repository.add(authorId, title, body);
-  update = (id, authorId, title, body) => this.repository.update(id, authorId, title, body);
+  findAll = () => this.repository.findAll();
+  add = (authorId, title, body, tags) =>
+    this.repository.add(authorId, title, body, tags);
+  update = (id, authorId, title, body, tags) =>
+    this.repository.update(id, authorId, title, body, tags);
   delete = (id) => this.repository.delete(id);
-
 }

@@ -4,6 +4,7 @@ export default function addPost(
   authorId,
   title,
   body,
+  tags,
   postRepo
 ) {
   // TODO: add a proper validation (consider using @hapi/joi)
@@ -13,5 +14,5 @@ export default function addPost(
     );
   }
 
-  return postRepo.add(authorId, title, body);
+  return postRepo.add(authorId, title, body, tags);
 }

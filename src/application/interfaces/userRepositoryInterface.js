@@ -6,9 +6,9 @@ export default class UserRepositoryInterface extends BaseCRUD {
     this.repository = repository;
   }
 
-  getAll = () => this.repository.getAll();
+  findAll = () => this.repository.getAll();
 
-	getById = (id) => this.repository.getById(id);
+	findById = (id) => this.repository.getById(id);
 
 	getByProperty = (properties) => this.repository.getByProperty(properties);
 

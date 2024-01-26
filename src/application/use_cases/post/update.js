@@ -1,7 +1,7 @@
 import { NotFoundError } from "../exceptions/index.js";
 
-export default async function updatePost(id, title, body, postRepo) {
-  let existingPost = await postRepo.getById(id);
+export default async function updatePost(id, title, body, tags, postRepo) {
+  let existingPost = await postRepo.findById(id);
   existingPost = existingPost.dataValues;
 
   if (!existingPost) throw new NotFoundError("Post not found");
@@ -11,5 +11,6 @@ export default async function updatePost(id, title, body, postRepo) {
     existingPost.authorId,
     title ?? existingPost.title,
     body ?? existingPost.body,
+    tags ?? existingPost.tags,
   );
 }

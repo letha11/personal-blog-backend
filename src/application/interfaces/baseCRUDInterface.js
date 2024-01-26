@@ -13,11 +13,11 @@ export default class BaseCRUD {
     return Promise.reject(new Error("Not Implemented"));
   }
 
-  getById() {
+  findById() {
     return Promise.reject(new Error("Not Implemented"));
   }
 
-  getAll() {
+  findAll() {
     return Promise.reject(new Error("Not Implemented"));
   }
 }

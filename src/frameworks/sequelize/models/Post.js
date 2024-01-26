@@ -10,6 +10,7 @@ const Post = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.User, { foreignKey: "authorId", as: "author" });
+      this.belongsToMany(models.Tag, { through: models.PostTags, as: "tags" });
     }
   }
   Post.init(
@@ -21,8 +22,9 @@ const Post = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Post",
-    }
+    },
   );
+
   return Post;
 };
 

@@ -7,14 +7,33 @@ export default class PostRepositoryImpl {
 
   findAll = () => {
     return this.model.findAll({
-      include: [{ model: dbModels["User"], as: "author" }],
+      include: [
+        {
+          attributes: ["id", "name", "email", "username"],
+          model: dbModels["User"],
+          as: "author",
+        },
+        {
+          attributes: ["id", "name"],
+          model: dbModels["Tag"],
+          through: { attributes: [] },
+          as: "tags",
+        },
+      ],
     });
   };
 
   findById = async (id) => {
     // findByPk stand for = Find by Primary key
     const post = await this.model.findByPk(id, {
-      include: [{ model: dbModels["User"], as: "author" }],
+      include: [
+        { model: dbModels["User"], as: "author" },
+        {
+          model: dbModels["Tag"],
+          through: { attributes: [] },
+          as: "tags",
+        },
+      ],
     });
     return post;
   };
@@ -34,18 +53,33 @@ export default class PostRepositoryImpl {
     return post;
   };
 
-  add = async (authorId, title, body) => {
+  add = async (authorId, title, body, tags) => {
     const newPost = await this.model.create({
       authorId: authorId,
       title: title,
       body: body,
+    }, {
+      include: {
+        attributes: ["id", "name"],
+        model: dbModels["Tag"],
+        through: { attributes: [] },
+        as: "tags",
+      },
     });
+
+    // for (const tag of tags.split(",")) {
+    //   await newPost.addTag(tag);
+    // }
+
+    await newPost.addTags(tags.split(","));
+
+    await newPost.reload(); // reload to get the new added tag
 
     return newPost;
   };
 
-  update = async (id, authorId, title, body) => {
-    const result = await this.model.update({
+  update = async (id, authorId, title, body, tags) => {
+    const updatedModel = await this.model.update({
       authorId: authorId,
       title: title,
       body: body,
@@ -53,7 +87,11 @@ export default class PostRepositoryImpl {
       where: { id },
     });
 
-    return result;
+    let test = await this.findById(id);
+
+    test.setTags(tags.split(","));
+
+    return updatedModel;
   };
 
   delete = async (id) => {

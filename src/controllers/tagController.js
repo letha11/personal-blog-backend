@@ -1,15 +1,15 @@
-import findById from "../application/use_cases/post/findById";
-import getAll from "../application/use_cases/post/getAll";
-import addPost from "../application/use_cases/post/add.js";
-import updatePost from "../application/use_cases/post/update.js";
-import deletePost from "../application/use_cases/post/delete.js";
+import addTag from "../application/use_cases/tag/add";
+import deleteTag from "../application/use_cases/tag/delete";
+import tagFindAll from "../application/use_cases/tag/findAll";
+import tagFindById from "../application/use_cases/tag/findById";
+import updateTag from "../application/use_cases/tag/update";
 
-export default function postController(postRepository) {
+export default function tagController(tagRepository) {
   const getById = async (req, res, next) => {
     const { id } = req.params;
 
     try {
-      const post = await findById(id, postRepository);
+      const post = await tagFindById(id, tagRepository);
       res.json({
         success: true,
         data: post,
@@ -21,7 +21,7 @@ export default function postController(postRepository) {
 
   const findAll = async (_, res, next) => {
     try {
-      const posts = await getAll(postRepository);
+      const posts = await tagFindAll(tagRepository);
 
       res.json({
         success: true,
@@ -33,21 +33,14 @@ export default function postController(postRepository) {
   };
 
   const add = async (req, res, next) => {
-    const { title, body, tags } = req.body;
-    const authorId = req.id;
+    const { name } = req.body;
 
     try {
-      const newPost = await addPost(
-        authorId,
-        title,
-        body,
-        tags,
-        postRepository,
-      );
+      const newUser = await addTag(name, tagRepository);
 
       res.json({
         success: true,
-        data: newPost,
+        data: newUser,
       });
     } catch (e) {
       next(e);
@@ -56,14 +49,14 @@ export default function postController(postRepository) {
 
   const update = async (req, res, next) => {
     const { id } = req.params;
-    const { title, body, tags } = req.body;
+    const { name } = req.body;
 
     try {
-      await updatePost(id, title, body, tags, postRepository);
+      await updateTag(id, name, tagRepository);
 
       res.json({
         success: true,
-        message: "Post updated successfully",
+        message: "Tag updated successfully",
       });
     } catch (e) {
       next(e);
@@ -74,11 +67,11 @@ export default function postController(postRepository) {
     const { id } = req.params;
 
     try {
-      await deletePost(id, postRepository);
+      await deleteTag(id, tagRepository);
 
       res.json({
         success: true,
-        message: "Post deleted successfully",
+        message: "Tag deleted successfully",
       });
     } catch (e) {
       next(e);
