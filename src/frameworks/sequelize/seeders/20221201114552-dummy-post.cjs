@@ -19,12 +19,12 @@ module.exports = {
       {
         authorId: 1,
         title: faker.word.adjective(),
-        body: faker.lorem.lines(5),
+        body: faker.lorem.lines(100),
       },
       {
         authorId: 1,
         title: faker.word.adjective(),
-        body: faker.lorem.lines(5),
+        body: faker.lorem.lines(20),
       },
     ]);
   },

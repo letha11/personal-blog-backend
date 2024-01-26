@@ -17,7 +17,7 @@ const Post = (sequelize, DataTypes) => {
     {
       authorId: DataTypes.INTEGER,
       title: DataTypes.STRING,
-      body: DataTypes.STRING,
+      body: DataTypes.TEXT('long'),
     },
     {
       sequelize,
